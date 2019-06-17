@@ -2210,9 +2210,8 @@ namespace Microsoft.AspNetCore.SignalR.Tests
                 Assert.Equal(2, resource.HubMethodArguments?.Count);
                 Assert.Equal("Hello", resource.HubMethodArguments[0]);
                 Assert.Equal("World!", resource.HubMethodArguments[1]);
-                Assert.NotNull(resource.Context);
-                Assert.Equal(context.User, resource.Context.User);
-                Assert.NotNull(resource.Context.GetHttpContext());
+                Assert.Equal(context.User, resource.User);
+                Assert.NotNull(resource.GetHttpContext());
 
                 return Task.CompletedTask;
             }

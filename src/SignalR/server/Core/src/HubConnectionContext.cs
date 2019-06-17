@@ -80,7 +80,7 @@ namespace Microsoft.AspNetCore.SignalR
             _clientTimeoutInterval = clientTimeoutInterval.Ticks;
             _streamBufferCapacity = streamBufferCapacity;
 
-            HubCallerContext = new DefaultHubCallerContext(this);
+            HubAuthorizationCallerContext = new HubAuthorizationContext(this);
         }
 
         internal StreamTracker StreamTracker
@@ -97,7 +97,7 @@ namespace Microsoft.AspNetCore.SignalR
             }
         }
 
-        internal HubCallerContext HubCallerContext { get; }
+        internal HubAuthorizationContext HubAuthorizationCallerContext { get; }
 
         /// <summary>
         /// Gets a <see cref="CancellationToken"/> that notifies when the connection is aborted.

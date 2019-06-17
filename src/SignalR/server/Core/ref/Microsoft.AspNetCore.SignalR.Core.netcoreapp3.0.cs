@@ -71,6 +71,19 @@ namespace Microsoft.AspNetCore.SignalR
         public virtual System.Threading.Tasks.Task OnConnectedAsync() { throw null; }
         public virtual System.Threading.Tasks.Task OnDisconnectedAsync(System.Exception exception) { throw null; }
     }
+    public partial class HubAuthorizationContext : Microsoft.AspNetCore.SignalR.HubCallerContext
+    {
+        public HubAuthorizationContext(Microsoft.AspNetCore.SignalR.HubConnectionContext connection) { }
+        public override System.Threading.CancellationToken ConnectionAborted { get { throw null; } }
+        public override string ConnectionId { get { throw null; } }
+        public override Microsoft.AspNetCore.Http.Features.IFeatureCollection Features { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<object> HubMethodArguments { [System.Runtime.CompilerServices.CompilerGeneratedAttribute]get { throw null; } }
+        public string HubMethodName { [System.Runtime.CompilerServices.CompilerGeneratedAttribute]get { throw null; } }
+        public override System.Collections.Generic.IDictionary<object, object> Items { get { throw null; } }
+        public override System.Security.Claims.ClaimsPrincipal User { get { throw null; } }
+        public override string UserIdentifier { get { throw null; } }
+        public override void Abort() { }
+    }
     public abstract partial class HubCallerContext
     {
         protected HubCallerContext() { }
@@ -302,17 +315,6 @@ namespace Microsoft.AspNetCore.SignalR.Internal
         public DefaultHubActivator(System.IServiceProvider serviceProvider) { }
         public virtual THub Create() { throw null; }
         public virtual void Release(THub hub) { }
-    }
-    public partial class DefaultHubCallerContext : Microsoft.AspNetCore.SignalR.HubCallerContext
-    {
-        public DefaultHubCallerContext(Microsoft.AspNetCore.SignalR.HubConnectionContext connection) { }
-        public override System.Threading.CancellationToken ConnectionAborted { get { throw null; } }
-        public override string ConnectionId { get { throw null; } }
-        public override Microsoft.AspNetCore.Http.Features.IFeatureCollection Features { get { throw null; } }
-        public override System.Collections.Generic.IDictionary<object, object> Items { get { throw null; } }
-        public override System.Security.Claims.ClaimsPrincipal User { get { throw null; } }
-        public override string UserIdentifier { get { throw null; } }
-        public override void Abort() { }
     }
     public partial class DefaultHubDispatcher<THub> : Microsoft.AspNetCore.SignalR.Internal.HubDispatcher<THub> where THub : Microsoft.AspNetCore.SignalR.Hub
     {

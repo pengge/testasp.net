@@ -479,7 +479,7 @@ namespace Microsoft.AspNetCore.SignalR.Internal
         private void InitializeHub(THub hub, HubConnectionContext connection)
         {
             hub.Clients = new HubCallerClients(_hubContext.Clients, connection.ConnectionId);
-            hub.Context = connection.HubCallerContext;
+            hub.Context = connection.HubAuthorizationCallerContext;
             hub.Groups = _hubContext.Groups;
         }
 
@@ -491,7 +491,10 @@ namespace Microsoft.AspNetCore.SignalR.Internal
                 return TaskCache.True;
             }
 
-            return IsHubMethodAuthorizedSlow(provider, hubConnectionContext.User, policies, new HubAuthorizationContext(hubConnectionContext.HubCallerContext, hubMethodName, hubMethodArguments));
+            // This assumes we run hub invocations serially until at least after this call
+            hubConnectionContext.HubAuthorizationCallerContext.HubMethodArguments = hubMethodArguments;
+            hubConnectionContext.HubAuthorizationCallerContext.HubMethodName = hubMethodName;
+            return IsHubMethodAuthorizedSlow(provider, hubConnectionContext.User, policies, hubConnectionContext.HubAuthorizationCallerContext);
         }
 
         private static async Task<bool> IsHubMethodAuthorizedSlow(IServiceProvider provider, ClaimsPrincipal principal, IList<IAuthorizeData> policies, HubAuthorizationContext resource)
